@@ -3,7 +3,7 @@ var router = express.Router();
 var http = require('http');
 //define the api to recieve the json data
 var url = 'http://data.sfgov.org/resource/yitu-d5am.json'
-var response,pretty,parsed,location='',escapedjson,a=[];
+var response,pretty,parsed,location='',escapedjson;
 /* GET home page. */
 router.get('/', function(req, res, next) {
   // res.render('index', { title: 'Express' });
@@ -20,14 +20,14 @@ router.get('/', function(req, res, next) {
        // if(i =  response.length-1)
          // location += '{ "locations" : "'+ response[i].locations  +'"}';
        // else
-        //  location += '{ "locations" : "'+ response[i].locations  +'"} ,';
-          a.push('{ "locations" : "'+ response[i].locations  +'"}');
+          location += '{ "locations" : "'+ response[i].locations  +'"} ,';
+        //  a.push('{ "locations" : "'+ response[i].locations  +'"}');
       //  console.log(response[i].locations);
       }
-      console.log(a);
-      var s= a.join(", ")
-      //location = "[" + location + "]";
-      escapedjson = JSON.stringify(s);
+     // console.log(a);
+     // var s= a.join(", ")
+      location = "[" + location + "]";
+      escapedjson = JSON.stringify(location);
       //escapedjson = escapedjson.replace(/,\s*$/, "");
       parsed=JSON.parse(escapedjson);
       console.log(parsed);
@@ -36,7 +36,7 @@ router.get('/', function(req, res, next) {
   }).on('error', function(e){
     console.log("the error is ",e)
   });
-  res.json(parsed);
+  res.send(response);
 });
 
 module.exports = router;
