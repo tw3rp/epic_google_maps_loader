@@ -17,26 +17,14 @@ router.get('/', function(req, res, next) {
       //pretty print JSON 
       for(var i=0;i<response.length;i++)
       {
-       // if(i =  response.length-1)
-         // location += '{ "locations" : "'+ response[i].locations  +'"}';
-       // else
-        //  location += '{ "locations" : "'+ response[i].locations  +'"} ,';
-          a.push('{ "locations" : "'+ response[i].locations  +'"}');
-      //  console.log(response[i].locations);
+        a.push({"locations":response[i].locations});
       }
       console.log(a);
-      var s= a.join(", ")
-      //location = "[" + location + "]";
-      escapedjson = JSON.stringify(s);
-      //escapedjson = escapedjson.replace(/,\s*$/, "");
-      parsed=JSON.parse(escapedjson);
-      console.log(parsed);
-      // pretty= JSON.stringify(response, null, 4);
     })
   }).on('error', function(e){
     console.log("the error is ",e)
   });
-  res.json(parsed);
+  res.send(a);
 });
 
 module.exports = router;
