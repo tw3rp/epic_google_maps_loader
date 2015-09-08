@@ -4,7 +4,7 @@ var http = require('http');
 //define the api to recieve the json data
 var url = 'http://data.sfgov.org/resource/yitu-d5am.json'
 //api for getting the lat and lng for displaying on the map
-var response,value,a=[],formatted_string='';
+var response,values,a=[],formatted_string='';
 var getGeocode = require("./api");
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -20,6 +20,7 @@ router.get('/', function(req, res, next) {
       for(var i=0;i<5;i++)
       {
         formatted_string = response[i].locations.replace(/ /g, '+');
+        //console.log(formatted_string);
         values =  getGeocode.geocode(formatted_string);
    //     console.log(values)
         a.push({"locations":formatted_string});
@@ -29,7 +30,7 @@ router.get('/', function(req, res, next) {
   }).on('error', function(e){
     console.log("the error is ",e)
   });
-  res.send(a);
+  res.send(values);
 });
 
 module.exports = router;
